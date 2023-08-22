@@ -14,10 +14,31 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Password is required."],
     },
-    name: {
+    username: {
       type: String,
-      required: [true, "Name is required."],
+      required: [true, "Username is required."],
     },
+    reviews: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Review"
+      }
+    ],
+    roles: {
+      type: [ String ],
+      enum: ["seller", "buyer", "admin"],
+      default: "buyer",
+    },
+    products: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Product",
+      },
+    ],
+    image: {
+      type: String,
+      default: "" //ADD SOME KIND OF DEFAULT IMAGE
+    }
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
