@@ -7,11 +7,12 @@ router.get("/", (req, res, next) => {
 });
 
 router.post('/upload', fileUploader.single("imageUrl"), (req, res, next) => {
+  // if there is no file, returns with a message
   if (!req.file) {
-    return res.status(404).json({ message: "no file uploaded" })
+    return res.status(404).json({ message: "no file added" })
   }
-
-  return res.json({ fileUrl: req.file.path })
+  // if there is a file it uploads it and returns the image url and a message
+  return res.json({ fileUrl: req.file.path, message: "image uploaded" })
 })
 
 module.exports = router;
