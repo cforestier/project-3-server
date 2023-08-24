@@ -15,7 +15,7 @@ const productSchema = new Schema({
   },
   author: {
     type: Schema.Types.ObjectId,
-    ref: "User",
+    ref: "User"
   },
   price: {
     type: Number,
