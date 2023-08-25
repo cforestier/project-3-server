@@ -36,7 +36,7 @@ const userSchema = new Schema(
     ],
     image: {
       type: String,
-      default: "" //ADD SOME KIND OF DEFAULT IMAGE
+      default: "https://img.freepik.com/free-icon/user_318-159711.jpg?w=2000"
     }
   },
   {
