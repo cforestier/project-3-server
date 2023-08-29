@@ -49,7 +49,9 @@ router.get("/single/:productId", (req, res, next) => {
 router.get("/all", (req, res, next) => {
   // finds all products in the database
   Product.find()
+  .populate("author")
     .then((allProducts) => {
+
       // if there are any products in the database it returns that to the front end
       if (allProducts.length > 0) {
         return res.status(200).json(allProducts);
