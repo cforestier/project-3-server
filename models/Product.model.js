@@ -29,6 +29,14 @@ const productSchema = new Schema({
     type: [String],
     required: true,
   },
+  age: {
+    type: String,
+    required: true,
+  },
+  brand: {
+    type: String,
+    default: "None"
+  },
 });
 
 const product = model("Product", productSchema)
