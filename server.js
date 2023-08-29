@@ -1,32 +1,44 @@
 const app = require("./app");
-const { Server } = require('socket.io')
 
-const io = new Server({
-  cors: {
-    origin: "http://localhost:3000"
-  }
-})
+const { Server } = require("socket.io");
+
+const io = new Server({ cors: "http://localhost:3000" });
+
+let onlineUsers = [];
 
 io.on("connection", (socket) => {
-  console.log("User Connected:", socket.id);
+  socket.on("addNewUser", (userId) => {
+    !onlineUsers.some((user) => user.userId === userId) &&
+      onlineUsers.push({ userId, socketId: socket.id });
 
-  socket.on("join_room", (data) => {
-    socket.join(data)
-    console.log("User with ID", socket.id, "joined room", data)
+    io.emit("getOnlineUsers", onlineUsers);
   });
 
-  socket.on("send_message", (data) => {
-    console.log(data)
-    socket.to(data.room).emit("recieve_message", data)
-  })
+  socket.on("sendMessage", (message) => {
+    console.log("message", message);
+    const user = onlineUsers.find(
+      (user) => user.userId === message.recipientId
+    );
+
+    const response = {
+      message: message.newMessage,
+      recipientId: message.recipientId,
+      chatId: message.chatId,
+    };
+
+    if (user) {
+      io.to(user.socketId).emit("getMessage", response);
+    }
+  });
 
   socket.on("disconnect", () => {
-    console.log("User Disconnected:", socket.id);
-  });
+    onlineUsers = onlineUsers.filter((user) => user.socketId !== socket.id);
 
+    io.emit("getOnlineUsers", onlineUsers);
+  });
 });
 
-io.listen(5006);
+io.listen(5500);
 
 // ℹ️ Sets the PORT for our app to have access to it. If no env has been set, we hard code it to 5005
 const PORT = process.env.PORT || 5005;
