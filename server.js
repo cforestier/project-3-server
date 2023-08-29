@@ -2,7 +2,7 @@ const app = require("./app");
 
 const { Server } = require("socket.io");
 
-const io = new Server({ cors: "https://fascinating-dusk-5888a7.netlify.app/" });
+const io = new Server({ cors: [process.env.ORIGIN, "http://localhost:3000"] });
 
 let onlineUsers = [];
 
