@@ -6,6 +6,7 @@ const User = require("../models/User.model");
 //create chat
 router.post("/create", async (req, res, next) => {
   const { firstId, secondId } = req.body;
+  console.log(req.body)
 
   try {
     const chat = await Chat.findOne({
