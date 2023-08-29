@@ -13,7 +13,7 @@ const cookieParser = require("cookie-parser");
 // unless the request is made from the same domain, by default express wont accept POST requests
 const cors = require("cors");
 
-const FRONTEND_URL = "https://main--dapper-kelpie-a71f03.netlify.app";
+const FRONTEND_URL = "https://dapper-kelpie-a71f03.netlify.app/";
 
 // Middleware configuration
 module.exports = (app) => {

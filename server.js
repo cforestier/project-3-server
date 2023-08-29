@@ -1,6 +1,6 @@
 const app = require("./app");
 const { Server } = require("socket.io");
-const FRONTEND_URL = "https://main--dapper-kelpie-a71f03.netlify.app";
+const FRONTEND_URL = "https://dapper-kelpie-a71f03.netlify.app/";
 
 const io = new Server({
   cors: {
