@@ -1,10 +1,10 @@
 const app = require("./app");
-
 const { Server } = require("socket.io");
+const FRONTEND_URL = "https://main--dapper-kelpie-a71f03.netlify.app";
 
 const io = new Server({
   cors: {
-    origin: "*",
+    origin: FRONTEND_URL,
   },
 });
 
@@ -48,5 +48,5 @@ io.listen(5500);
 const PORT = process.env.PORT || 5005;
 
 app.listen(PORT, () => {
-  console.log(`Server listening on http://localhost:${PORT}`);
+  console.log(`Server listening`);
 });
