@@ -2,7 +2,11 @@ const app = require("./app");
 
 const { Server } = require("socket.io");
 
-const io = new Server({ cors: [process.env.ORIGIN, "http://localhost:3000"] });
+const io = new Server({
+  cors: {
+    origin: "*",
+  },
+});
 
 let onlineUsers = [];
 
