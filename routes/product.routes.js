@@ -35,6 +35,7 @@ router.get("/single/:productId", (req, res, next) => {
   const { productId } = req.params;
   // finds the product via it's ID
   Product.findById(productId)
+  .populate("author")
     .then((foundProduct) => {
       // if there is a product with that ID it sends back the product to the front end
       if (foundProduct) {
