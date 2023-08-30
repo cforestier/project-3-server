@@ -18,6 +18,8 @@ router.post("/create", isAuthenticated, async (req, res, next) => {
       price,
       quantity,
       categories,
+      age,
+      brand
     });
     // adds the new product to the products array of the creator of the product
     await User.findByIdAndUpdate(user._id, {
@@ -108,6 +110,41 @@ router.post("/delete/:productId", async (req, res, next) => {
     return res.status(200).json({ message: "Product deleted" });
   } catch (err) {
     console.log(err);
+  }
+});
+
+router.post('/:productId/like', isAuthenticated, async (req, res) => {
+  const productId = req.params.productId;
+  const loggedUser = req.payload;
+  // const userId = req.body.userId;
+
+  try {
+    const product = await Product.findById(productId);
+    const user = await User.findById(loggedUser._id);
+
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    const likedIndex = product.likes.indexOf(loggedUser._id);
+    const productsLikedIndex = user.productsLiked.indexOf(product._id);
+
+    if (likedIndex === -1) {
+      // User hasn't liked the product yet, so add the like
+      product.likes.push(loggedUser._id);
+      user.productsLiked.push(product._id);
+    } else {
+      // User has already liked the product, so remove the like
+      product.likes.splice(likedIndex, 1);
+      user.productsLiked.slice(productsLikedIndex, 1);
+    }
+
+    await product.save();
+
+    res.status(200).json(product);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
   }
 });
 
