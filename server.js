@@ -13,6 +13,7 @@ io.on("connection", (socket) => {
   socket.on("addNewUser", (userId) => {
     !onlineUsers.some((user) => user.userId === userId) &&
       onlineUsers.push({ userId, socketId: socket.id });
+    console.log(userId, onlineUsers)
 
     io.emit("getOnlineUsers", onlineUsers);
   });
