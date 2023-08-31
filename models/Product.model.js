@@ -37,6 +37,12 @@ const productSchema = new Schema({
     type: String,
     default: "None"
   },
+  likes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
 });
 
 const product = model("Product", productSchema)
