@@ -5,7 +5,6 @@ const Message = require("../models/Message.model");
 // create message
 router.post("/create", async (req, res, next) => {
   const { chatId, senderId, message } = req.body;
-  console.log(chatId, senderId, message)
 
   const newMessage = new Message({
     chatId,
