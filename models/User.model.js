@@ -20,11 +20,11 @@ const userSchema = new Schema(
     reviews: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Review"
-      }
+        ref: "Review",
+      },
     ],
     roles: {
-      type: [ String ],
+      type: [String],
       enum: ["seller", "buyer", "admin"],
       default: "buyer",
     },
@@ -36,7 +36,7 @@ const userSchema = new Schema(
     ],
     image: {
       type: String,
-      default: "https://img.freepik.com/free-icon/user_318-159711.jpg?w=2000"
+      default: "https://img.freepik.com/free-icon/user_318-159711.jpg?w=2000",
     },
     productsLiked: [
       {
