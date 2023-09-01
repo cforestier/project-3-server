@@ -37,7 +37,9 @@ router.get("/:userId", (req, res, next) => {
 router.put("/edit/:userId", isAuthenticated, (req, res, next) => {
   const user = req.payload;
   const { username, image } = req.body;
-  console.log(username, image);
+  console.log(req.body)
+
+  if (username.length < 5) return res.status(200).json({message: "username can not be less than 5 characters"})
 
   User.findOne({ username }).then((foundUser) => {
     if (foundUser) {
@@ -57,10 +59,10 @@ router.put("/edit/:userId", isAuthenticated, (req, res, next) => {
 router.put("/edit/:userId/image", isAuthenticated, (req, res, next) => {
   const user = req.payload;
   const { image } = req.body;
-  User.findByIdAndUpdate(user._id, { image }, {new: true})
-  .then((editedUser) => {
-    res.json({ image: editedUser.image, message: "Avatar changed" })
-  }
+  User.findByIdAndUpdate(user._id, { image }, { new: true }).then(
+    (editedUser) => {
+      res.json({ image: editedUser.image, message: "Avatar changed" });
+    }
   );
 });
 

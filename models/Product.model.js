@@ -15,7 +15,7 @@ const productSchema = new Schema({
   },
   author: {
     type: Schema.Types.ObjectId,
-    ref: "User"
+    ref: "User",
   },
   price: {
     type: Number,
@@ -37,8 +37,14 @@ const productSchema = new Schema({
     type: String,
     default: "None"
   },
+  likes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
 });
 
-const product = model("Product", productSchema)
+const product = model("Product", productSchema);
 
-module.exports = product
+module.exports = product;

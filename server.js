@@ -43,5 +43,5 @@ io.listen(443);
 const PORT = process.env.PORT || 5005;
 
 app.listen(PORT, () => {
-  console.log(`Server listening`);
+  console.log(`Server listening ${PORT}`);
 });

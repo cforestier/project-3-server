@@ -37,7 +37,13 @@ const userSchema = new Schema(
     image: {
       type: String,
       default: "https://img.freepik.com/free-icon/user_318-159711.jpg?w=2000"
-    }
+    },
+    productsLiked: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Product",
+      },
+    ],
   },
   {
     timestamps: true,
