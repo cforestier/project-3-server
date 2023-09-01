@@ -39,10 +39,6 @@ router.get("/:userId", (req, res, next) => {
 router.put("/edit/:userId", isAuthenticated, (req, res, next) => {
   const user = req.payload;
   const { username, password } = req.body;
-  if (username.length < 5)
-    return res
-      .status(200)
-      .json({ message: "username can not be less than 5 characters" });
 
   if (password && username) {
     const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
