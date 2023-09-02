@@ -113,33 +113,47 @@ router.post("/delete/:productId", async (req, res, next) => {
   }
 });
 
-router.post('/:productId/like', isAuthenticated, async (req, res) => {
+router.post("/:productId/like", isAuthenticated,  async (req, res) => {
+  
   const productId = req.params.productId;
+  console.log(req.params)
   const loggedUser = req.payload;
   // const userId = req.body.userId;
+
+  console.log(req.payload)
+  // console.log(loggedUser)
 
   try {
     const product = await Product.findById(productId);
     const user = await User.findById(loggedUser._id);
+    // const user = await User.findById(userId);
+
 
     if (!product) {
       return res.status(404).json({ message: 'Product not found' });
     }
 
     const likedIndex = product.likes.indexOf(loggedUser._id);
+    // const likedIndex = product.likes.indexOf(userId);
+
+    if (!Array.isArray(user.productsLiked)) {
+      user.productsLiked = [];
+    }
+
     const productsLikedIndex = user.productsLiked.indexOf(product._id);
 
-    if (likedIndex === -1) {
-      // User hasn't liked the product yet, so add the like
+    if (likedIndex === -1 || undefined && productsLikedIndex === -1 || undefined) {
+    
+      // product.likes.push(userId);
       product.likes.push(loggedUser._id);
       user.productsLiked.push(product._id);
     } else {
       // User has already liked the product, so remove the like
       product.likes.splice(likedIndex, 1);
-      user.productsLiked.slice(productsLikedIndex, 1);
+      user.productsLiked.splice(productsLikedIndex, 1);
     }
 
-    await product.save();
+    await Promise.all([product.save(), user.save()]);
 
     res.status(200).json(product);
   } catch (error) {
