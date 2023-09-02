@@ -6,7 +6,7 @@ const User = require("../models/User.model");
 
 router.post("/create", isAuthenticated, async (req, res, next) => {
   const user = req.payload;
-  const { title, description, images, price, quantity, categories } = req.body;
+  const { title, description, images, price, quantity, categories, wear, brand } = req.body;
   // creates a product using the req.body & the req.payload(user)
   // (title, description, images, price, quantity, categories)
   try {
@@ -18,7 +18,7 @@ router.post("/create", isAuthenticated, async (req, res, next) => {
       price,
       quantity,
       categories,
-      age,
+      wear,
       brand
     });
     // adds the new product to the products array of the creator of the product

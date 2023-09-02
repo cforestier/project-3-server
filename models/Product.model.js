@@ -29,7 +29,7 @@ const productSchema = new Schema({
     type: [String],
     required: true,
   },
-  age: {
+  wear: {
     type: String,
     required: true,
   },
