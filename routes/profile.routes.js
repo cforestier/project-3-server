@@ -10,6 +10,7 @@ router.get("/:userId", (req, res, next) => {
   const { userId } = req.params;
   // finds the user using the ID and populates the reviews & products arrays
   User.findById(userId)
+    .populate("productsLiked")
     .populate("reviews")
     .populate("products")
     .then((foundUser) => {
@@ -18,7 +19,7 @@ router.get("/:userId", (req, res, next) => {
         return res.json({ message: "User not found" });
       } else {
         // destructure the foundUser to only return relevant information (no password or timestamps)
-        const { _id, email, username, reviews, roles, products, image } =
+        const { _id, email, username, reviews, roles, products, image, productsLiked } =
           foundUser;
         // new user object that we will return to front end
         const user = {
@@ -29,6 +30,7 @@ router.get("/:userId", (req, res, next) => {
           roles,
           products,
           image,
+          productsLiked
         };
         // returns the user and a message to the front end
         return res.status(200).json({ user, message: "User found" });
