@@ -60,7 +60,7 @@ router.get("/all", (req, res, next) => {
         return res.status(200).json(allProducts);
       }
       // if there are no products in the database it sends back a message and a 404 status
-      return res.status(404).json({ message: "There are no products" });
+      return res.status(200).json({ message: "There are no products" });
     })
     .catch((err) => console.log(err));
 });
