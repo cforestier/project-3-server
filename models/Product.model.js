@@ -26,11 +26,11 @@ const productSchema = new Schema({
     required: true,
   },
   categories: {
-    type: [String],
+    type: [{}],
     required: true,
   },
-  age: {
-    type: String,
+  wear: {
+    type: {},
     required: true,
   },
   brand: {
