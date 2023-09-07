@@ -54,15 +54,13 @@ router.get("/all", isAuthenticated, async (req, res, next) => {
     const orders = await Order.find({ customer: user._id });
 
     if (orders.length === 0) {
-      return res.status(404).json({ message: "Aucune commande trouvée" });
+      return res.status(404).json({ message: "can't find the order" });
     }
 
     return res.status(200).json(orders);
   } catch (err) {
     console.error(err);
-    return res
-      .status(500)
-      .json({ message: "Erreur lors de la récupération des commandes" });
+    return res.status(500).json({ message: "error in the query of orders" });
   }
 });
 
