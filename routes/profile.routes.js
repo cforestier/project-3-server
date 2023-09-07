@@ -19,8 +19,17 @@ router.get("/:userId", (req, res, next) => {
         return res.json({ message: "User not found" });
       } else {
         // destructure the foundUser to only return relevant information (no password or timestamps)
-        const { _id, email, username, reviews, roles, products, image, productsLiked } =
-          foundUser;
+        const {
+          _id,
+          email,
+          username,
+          reviews,
+          roles,
+          products,
+          image,
+          productsLiked,
+        } = foundUser;
+        console.log("found user", foundUser);
         // new user object that we will return to front end
         const user = {
           _id,
@@ -30,8 +39,9 @@ router.get("/:userId", (req, res, next) => {
           roles,
           products,
           image,
-          productsLiked
+          productsLiked,
         };
+        console.log("user", user);
         // returns the user and a message to the front end
         return res.status(200).json({ user, message: "User found" });
       }
