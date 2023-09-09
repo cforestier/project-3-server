@@ -29,7 +29,6 @@ router.get("/:userId", (req, res, next) => {
           image,
           productsLiked,
         } = foundUser;
-        console.log("found user", foundUser);
         // new user object that we will return to front end
         const user = {
           _id,
@@ -41,7 +40,6 @@ router.get("/:userId", (req, res, next) => {
           image,
           productsLiked,
         };
-        console.log("user", user);
         // returns the user and a message to the front end
         return res.status(200).json({ user, message: "User found" });
       }

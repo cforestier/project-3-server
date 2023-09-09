@@ -39,6 +39,9 @@ app.use("/messages", messageRoutes);
 const orderRoutes = require("./routes/order.routes");
 app.use("/order", orderRoutes);
 
+const paymentRoutes = require("./routes/payment.routes");
+app.use("/stripe", paymentRoutes);
+
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
 

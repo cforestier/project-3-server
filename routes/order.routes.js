@@ -8,7 +8,7 @@ router.post("/create", isAuthenticated, async (req, res, next) => {
   const user = req.payload;
   const { products, totalAmount } = req.body;
 
-  console.log("products", products)
+  console.log("products", products);
 
   try {
     const newOrder = await Order.create({
