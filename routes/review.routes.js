@@ -90,7 +90,7 @@ router.get("/all/:userId", (req, res, next) => {
       // if there are any reviews in the array it will return the reviews to the front end
       if (foundUser.reviews.length > 0) {
         return res.status(200).json({ reviews: foundUser.reviews });
-      } 
+      }
       // if no reviews are present in the array it returns a message
       else {
         return res.status(404).json({ message: "No reviews yet" });
@@ -106,7 +106,7 @@ router.get("/single/:reviewId", (req, res, next) => {
   Review.findById(reviewId).then((foundReview) => {
     if (foundReview) {
       res.status(200).json({ foundReview });
-    } 
+    }
     // if the review cant be found it returns a message
     else {
       res.status(400).json({ message: "Review not found" });

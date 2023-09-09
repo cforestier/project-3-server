@@ -5,7 +5,7 @@ const { isAuthenticated } = require("../middleware/jwt.middleware");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
-router.get("/:userId", (req, res, next) => {
+router.get("/single/:userId", (req, res, next) => {
   // gets the userId from params
   const { userId } = req.params;
   // finds the user using the ID and populates the reviews & products arrays
@@ -19,8 +19,16 @@ router.get("/:userId", (req, res, next) => {
         return res.json({ message: "User not found" });
       } else {
         // destructure the foundUser to only return relevant information (no password or timestamps)
-        const { _id, email, username, reviews, roles, products, image, productsLiked } =
-          foundUser;
+        const {
+          _id,
+          email,
+          username,
+          reviews,
+          roles,
+          products,
+          image,
+          productsLiked,
+        } = foundUser;
         // new user object that we will return to front end
         const user = {
           _id,
@@ -30,7 +38,7 @@ router.get("/:userId", (req, res, next) => {
           roles,
           products,
           image,
-          productsLiked
+          productsLiked,
         };
         // returns the user and a message to the front end
         return res.status(200).json({ user, message: "User found" });
@@ -38,14 +46,16 @@ router.get("/:userId", (req, res, next) => {
     });
 });
 
-router.put("/edit/:userId", isAuthenticated, (req, res, next) => {
+router.put("/edit/:userId/info", isAuthenticated, (req, res, next) => {
   const user = req.payload;
-  const { username, password } = req.body;
+  const { username, password, currentPassword } = req.body;
+
+  console.log(req.body)
 
   if (password && username) {
     const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
     if (!passwordRegex.test(password)) {
-      res.status(400).json({
+      res.status(200).json({
         message:
           "Password must have at least 6 characters and contain at least one number, one lowercase and one uppercase letter.",
       });
@@ -69,9 +79,9 @@ router.put("/edit/:userId", isAuthenticated, (req, res, next) => {
   } else if (password) {
     const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
     if (!passwordRegex.test(password)) {
-      res.status(400).json({
-        message:
-          "Password must have at least 6 characters and contain at least one number, one lowercase and one uppercase letter.",
+      res.status(200).json({
+        errorMessage:
+          "Password must have at least 6 characters. It must contain one number & one uppercase letter",
       });
       return;
     }
