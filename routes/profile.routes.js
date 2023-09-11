@@ -98,4 +98,14 @@ router.put("/edit/:userId/info", isAuthenticated, async (req, res, next) => {
   }
 });
 
+router.put("/edit/:userId/image", isAuthenticated, (req, res, next) => {
+  const user = req.payload;
+  const { image } = req.body;
+  User.findByIdAndUpdate(user._id, { image }, { new: true }).then(
+    (editedUser) => {
+      res.json({ image: editedUser.image, message: "Avatar changed" });
+    }
+  );
+});
+
 module.exports = router;
