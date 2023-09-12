@@ -3,7 +3,7 @@ const router = express.Router();
 const { isAuthenticated } = require("../middleware/jwt.middleware");
 const cors = require("cors");
 
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST);
 
 router.post("/charge", async (req, res) => {
   let { amount, id } = req.body;
@@ -18,6 +18,7 @@ router.post("/charge", async (req, res) => {
         allow_redirects: "always",
         enabled: "true",
       },
+      return_url: "http://localhost:3000/stripe/thank-you",
     });
     console.log(payment);
     res.json({

@@ -8,8 +8,6 @@ router.post("/create", isAuthenticated, async (req, res, next) => {
   const user = req.payload;
   const { products, totalAmount } = req.body;
 
-  console.log("products", products);
-
   try {
     const newOrder = await Order.create({
       products,
@@ -23,7 +21,7 @@ router.post("/create", isAuthenticated, async (req, res, next) => {
 
     return res.status(201).json({ message: "Commande créée", newOrder });
   } catch (err) {
-    console.error(err);
+    console.error("catch error", err);
     return res
       .status(500)
       .json({ message: "Erreur lors de la création de la commande" });
