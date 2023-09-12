@@ -3,6 +3,7 @@ const router = express.Router();
 const Order = require("../models/Order.model");
 const { isAuthenticated } = require("../middleware/jwt.middleware");
 const User = require("../models/User.model");
+const Product = require("../models/Product.model");
 
 router.post("/create", isAuthenticated, async (req, res, next) => {
   const user = req.payload;
@@ -17,6 +18,18 @@ router.post("/create", isAuthenticated, async (req, res, next) => {
 
     await User.findByIdAndUpdate(user._id, {
       $push: { orders: newOrder._id },
+    });
+
+    products.forEach((product) => {
+      Product.findById(product._id).then((response) => {
+        Product.findByIdAndUpdate(
+          product._id,
+          { quantity: response.quantity - product.quantity },
+          { new: true }
+        ).then((response) => {
+          console.log(response);
+        });
+      });
     });
 
     return res.status(201).json({ message: "Commande créée", newOrder });

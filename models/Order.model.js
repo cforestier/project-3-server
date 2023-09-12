@@ -1,19 +1,9 @@
 const { model, Schema } = require("mongoose");
 
 const orderSchema = new Schema({
-  products: [
-    {
-      product: {
-        type: Schema.Types.ObjectId,
-        ref: "Product",
-        required: true,
-      },
-      quantity: {
-        type: Number,
-        required: true,
-      },
-    },
-  ],
+  products: {
+    type: [{}],
+  },
   customer: {
     type: Schema.Types.ObjectId,
     ref: "User",
