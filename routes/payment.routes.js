@@ -20,7 +20,6 @@ router.post("/charge", async (req, res) => {
       },
       return_url: "http://localhost:3000/stripe/thank-you",
     });
-    console.log(payment);
     res.json({
       message: "Payment made",
       success: true,
@@ -32,6 +31,14 @@ router.post("/charge", async (req, res) => {
       success: false,
     });
   }
+});
+
+router.get("/thank-you", (req, res, next) => {
+  res.json("payment successful");
+});
+
+router.get("/card-declined", (req, res, next) => {
+  res.json("card declined");
 });
 
 module.exports = router;
