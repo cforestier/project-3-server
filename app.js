@@ -37,7 +37,7 @@ const messageRoutes = require("./routes/message.routes");
 app.use("/messages", messageRoutes);
 
 const orderRoutes = require("./routes/order.routes");
-app.use("/order", orderRoutes);
+app.use("/orders", orderRoutes);
 
 const paymentRoutes = require("./routes/payment.routes");
 app.use("/stripe", paymentRoutes);
