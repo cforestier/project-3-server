@@ -64,7 +64,7 @@ router.put("/edit/:reviewId", (req, res, next) => {
   // gets the review ID from the params
   const { reviewId } = req.params;
 
-  // fins the review and updates it using the req.body (review, comment)
+  // finds the review and updates it using the req.body (review, comment)
   Review.findByIdAndUpdate(reviewId, req.body, { new: true }).then(
     (updatedReview) => {
       // checks if the review is in the database and if not returns a message

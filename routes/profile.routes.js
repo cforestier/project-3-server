@@ -11,7 +11,13 @@ router.get("/single/:userId", (req, res, next) => {
   // finds the user using the ID and populates the reviews & products arrays
   User.findById(userId)
     .populate("productsLiked")
-    .populate("reviews")
+    .populate({
+      path: "reviews",
+      populate: {
+        path: "author",
+        select: "username image"
+      }
+    })
     .populate("products")
     .then((foundUser) => {
       // if there is no user it will return a message
