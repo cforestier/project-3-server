@@ -25,7 +25,7 @@ router.post("/charge", async (req, res) => {
       success: true,
     });
   } catch (error) {
-    console.log("erreur...", error);
+    console.log("error", error);
     res.json({
       message: "payment failed",
       success: false,

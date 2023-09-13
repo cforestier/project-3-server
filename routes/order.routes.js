@@ -27,7 +27,6 @@ router.post("/create", isAuthenticated, async (req, res, next) => {
           { quantity: response.quantity - product.quantity },
           { new: true }
         ).then((response) => {
-          console.log(response);
         });
       });
     });

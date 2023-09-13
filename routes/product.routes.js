@@ -116,12 +116,7 @@ router.post("/delete/:productId", async (req, res, next) => {
 router.post("/:productId/like", isAuthenticated,  async (req, res) => {
   
   const productId = req.params.productId;
-  console.log(req.params)
   const loggedUser = req.payload;
-  // const userId = req.body.userId;
-
-  console.log(req.payload)
-  // console.log(loggedUser)
 
   try {
     const product = await Product.findById(productId);

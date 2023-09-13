@@ -24,10 +24,16 @@ router.post("/create/:targetId", isAuthenticated, async (req, res, next) => {
     await User.findByIdAndUpdate(targetId, {
       $push: { reviews: newReview._id },
     });
+    const populateNewReview = await Review.findById(newReview._id).populate(
+      "author"
+    );
     // returns a message and the new review if successful
     return res
       .status(200)
-      .json({ newReview, message: "review Created Successfully" });
+      .json({
+        newReview: populateNewReview,
+        message: "review Created Successfully",
+      });
   } catch (err) {
     console.log(err);
     // if there's an error it will send this message instead
@@ -60,23 +66,27 @@ router.post("/delete/:reviewId", async (req, res, next) => {
   }
 });
 
-router.put("/edit/:reviewId", (req, res, next) => {
+router.put("/edit/:reviewId", async (req, res, next) => {
   // gets the review ID from the params
   const { reviewId } = req.params;
 
   // finds the review and updates it using the req.body (review, comment)
-  Review.findByIdAndUpdate(reviewId, req.body, { new: true }).then(
-    (updatedReview) => {
-      // checks if the review is in the database and if not returns a message
-      if (!updatedReview) {
-        return res.status(400).json({ message: "Review not found" });
-      }
-      // if it can be found it will return the updatedReview and a message
-      return res
-        .status(200)
-        .json({ updatedReview, message: "review edited successfully" });
-    }
-  );
+  const updatedReview = await Review.findByIdAndUpdate(reviewId, req.body, {
+    new: true,
+  });
+  if (!updatedReview) {
+    return res.status(400).json({ message: "Review not found" });
+  } else {
+    const populatedReview = await Review.findById(updatedReview._id).populate(
+      "author"
+    );
+    return res
+      .status(200)
+      .json({
+        updatedReview: populatedReview,
+        message: "review edited successfully",
+      });
+  }
 });
 
 router.get("/all/:userId", (req, res, next) => {

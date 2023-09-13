@@ -59,7 +59,3 @@ router.get("/user/:userId", async (req, res, next) => {
 });
 
 module.exports = router;
-
-//get user chats
-
-//find one chat

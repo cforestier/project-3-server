@@ -65,7 +65,6 @@ router.put("/edit/:userId/info", isAuthenticated, async (req, res, next) => {
         foundUser.password
       );
       if (!correctPassword) {
-        console.log("incorrect");
         return res.json({ errorMessage: "Invalid current password provided" });
       } else if (!passwordRegex.test(password)) {
         res.json({
@@ -73,7 +72,6 @@ router.put("/edit/:userId/info", isAuthenticated, async (req, res, next) => {
             "Password must have at least 6 characters and contain at least one number, one lowercase and one uppercase letter.",
         });
       } else if (correctPassword && currentPassword === password) {
-        console.log("Right but the same as new");
         return res.json({
           errorMessage: "Can not change to the same password",
         });
