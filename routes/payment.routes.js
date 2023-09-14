@@ -3,7 +3,7 @@ const router = express.Router();
 const { isAuthenticated } = require("../middleware/jwt.middleware");
 const cors = require("cors");
 
-const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST);
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 router.post("/charge", async (req, res) => {
   let { amount, id } = req.body;

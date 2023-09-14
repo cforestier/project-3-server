@@ -26,8 +26,7 @@ router.post("/create", isAuthenticated, async (req, res, next) => {
           product._id,
           { quantity: response.quantity - product.quantity },
           { new: true }
-        ).then((response) => {
-        });
+        ).then((response) => {});
       });
     });
 
